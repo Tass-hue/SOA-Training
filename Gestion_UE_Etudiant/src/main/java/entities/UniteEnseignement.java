@@ -18,6 +18,7 @@ public class UniteEnseignement {
         this.semestre = semestre;
     }
 
+
     // Getters et Setters
     public int getCode() {
         return code;
