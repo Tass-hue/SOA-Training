@@ -1,0 +1,12 @@
+workspace:
+  id: 932dd22d-b032-426e-8759-88c225888307
+localResources:
+  specs:
+    - ../C:/Users/MSI/Desktop/soa/SOA-Training/GraphQL/src/main/resources/schema.graphql
+    - ../C:/Users/MSI/Desktop/soa/SOA-Training/GraphQL/target/classes/schema.graphql
+    - ../C:/Users/MSI/Desktop/soa/SOA-Training/GraphQL/target/GraphQlLogement-0.0.1-SNAPSHOT/WEB-INF/classes/schema.graphql
+resourceNameMappings:
+  specs:
+    - ../GraphQL/src/main/resources/schema.graphql: schema.graphql
+    - ../GraphQL/target/GraphQlLogement-0.0.1-SNAPSHOT/WEB-INF/classes/schema.graphql: schema.graphql
+    - ../GraphQL/target/classes/schema.graphql: schema.graphql

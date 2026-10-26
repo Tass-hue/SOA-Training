@@ -1,57 +1,40 @@
 package graphql;
 
-// Import the business logic class responsible for managing "UniteEnseignement" data
+import business.ModuleBusiness;
 import business.UniteEnseignementBusiness;
-
-// Import the GraphQL library class used to define the root of GraphQL mutations
-import com.coxautodev.graphql.tools.GraphQLRootResolver;
-
-// Import the entity class representing a Teaching Unit (Unité d’Enseignement)
+import com.coxautodev.graphql.tools.GraphQLMutationResolver;
+import entities.Module;
 import entities.UniteEnseignement;
 
-/**
- * This class defines all GraphQL mutations related to the "UniteEnseignement" entity.
- * A mutation in GraphQL is used to perform write operations (create, update, delete)
- * as opposed to queries, which are for read operations.
- */
-public class MutationResolver implements GraphQLRootResolver {
+public class MutationResolver implements GraphQLMutationResolver {
 
-    // Attribute used to access the business logic (service layer)
-    public UniteEnseignementBusiness helper;
+    private final ModuleBusiness moduleBusiness;
+    private final UniteEnseignementBusiness ueBusiness = new UniteEnseignementBusiness();
 
-    /**
-     * Constructor of the resolver.
-     * It initializes the business helper that manages the teaching units.
-     */
-    public MutationResolver() {
-        helper = new UniteEnseignementBusiness();
+    public MutationResolver(ModuleBusiness moduleBusiness) {
+        this.moduleBusiness = moduleBusiness;
     }
 
-    /**
-     * GraphQL Mutation: addUniteEnseignement
-     *
-     * This method allows clients to add a new "Unité d’Enseignement" to the system.
-     *
-     * When a GraphQL mutation like the following is executed:
-     *
-     * mutation {
-     *     addUniteEnseignement(
-     *         code: 101,
-     *         domaine: "Informatique",
-     *         responsable: "Dr. Smith",
-     *         credits: 4,
-     *         semestre: 2
-     *     )
-     * }
-     *
-     * GraphQL calls this Java method to create and save a new teaching unit.
-     */
-    public boolean addUniteEnseignement(int code, String domaine, String responsable, int credits, int semestre) {
-        // Create a new UniteEnseignement object with the provided parameters
-        UniteEnseignement ue = new UniteEnseignement(code, domaine, responsable, credits, semestre);
+    // CREATE
+    public Module addmodule(String matricule, String nom, int coefficient, int volumeHoraire,
+                            Module.TypeModule type, int codeUE) {
+        UniteEnseignement ue = ueBusiness.getUEByCode(codeUE);
+        if (ue == null) return null;                       // UE inexistante
+        Module module = new Module(matricule, nom, coefficient, volumeHoraire, type, ue);
+        return moduleBusiness.addModule(module) ? module : null;
+    }
 
-        // Call the business logic method to add the new unit
-        // The helper handles the actual persistence or logic of adding the entity
-        return helper.addUniteEnseignement(ue);
+    // UPDATE
+    public Module updatemodule(String matricule, String nom, int coefficient, int volumeHoraire,
+                               Module.TypeModule type, int codeUE) {
+        UniteEnseignement ue = ueBusiness.getUEByCode(codeUE);
+        if (ue == null) return null;
+        Module module = new Module(matricule, nom, coefficient, volumeHoraire, type, ue);
+        return moduleBusiness.updateModule(matricule, module) ? module : null;
+    }
+
+    // DELETE
+    public boolean deletemodule(String matricule) {
+        return moduleBusiness.deleteModule(matricule);
     }
 }
