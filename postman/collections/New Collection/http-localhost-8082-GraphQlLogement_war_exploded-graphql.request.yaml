@@ -1,0 +1,26 @@
+$kind: graphql-request
+name: http://localhost:8082/GraphQlLogement_war_exploded/graphql
+description: ""
+url: http://localhost:8082/GraphQlLogement_war_exploded/graphql
+query: |
+  query AllUEs {
+      allUEs {
+          code
+          responsable
+      }
+  }
+
+  mutation AddUniteEnseignement {
+      addUniteEnseignement(
+          code: 55
+          domaine: "uh"
+          responsable: "med"
+          credits: 12
+          semestre: 147
+      )
+  }
+variables: ""
+settings: {}
+schema:
+  source: auto
+order: 1000
