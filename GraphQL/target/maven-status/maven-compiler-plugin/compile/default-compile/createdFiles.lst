@@ -3,6 +3,7 @@ entities\Module$TypeModule.class
 graphql\MutationResolver.class
 graphql\GraphQLEndPoint.class
 business\ModuleBusiness.class
+GraphQLEndPoint.class
 entities\UniteEnseignement.class
 entities\Module.class
 graphql\QueryResolver.class
